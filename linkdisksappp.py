@@ -13,6 +13,9 @@ import json
 
 from functools import wraps
 
+import os
+
+
 
 app = Flask(__name__)
 
@@ -173,8 +176,11 @@ def login_user():
 
 
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+
+    app.run(host='0.0.0.0', port=port, debug=True)
 
 
 #{"user_id":"saurav","size":"512KB","email":"sauravsrivastava121@gmail.com","pass_code":"1234"}
