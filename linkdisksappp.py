@@ -178,9 +178,9 @@ def login_user():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.debug = False
+     port = int(os.environ.get('PORT', 33507))
+     waitress.serve(app, port=port)
 
 
 #{"user_id":"saurav","size":"512KB","email":"sauravsrivastava121@gmail.com","pass_code":"1234"}
