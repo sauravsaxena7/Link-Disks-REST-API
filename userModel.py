@@ -1,14 +1,15 @@
 
-import linkdisksappp
+from mongoengine.document import Document
+from mongoengine.fields import DateTimeField, StringField, EmailField,BooleanField
 
 
-class users(linkdisksappp.db.Document):
+class users(Document):
 
-    user_id=linkdisksappp.db.StringField(unique=True,required=True)
-    size = linkdisksappp.db.StringField(required=True)
-    email=linkdisksappp.db.StringField(unique=True,required=True)
-    pass_code=linkdisksappp.db.StringField(required=True)
-    admin=linkdisksappp.db.BooleanField(required=True)
+    user_id=StringField(unique=True,required=True)
+    size = StringField(required=True)
+    email=StringField(unique=True,required=True)
+    pass_code=StringField(required=True)
+    admin=BooleanField(required=True)
 
     def to_json(self):
         #convert this document to json
