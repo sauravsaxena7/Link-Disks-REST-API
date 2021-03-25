@@ -3,7 +3,6 @@ from flask_mongoengine import MongoEngine
 
 from api_constraints import mongodb_password
 
-import userModel
 
 from werkzeug.security import generate_password_hash,check_password_hash
 
@@ -34,6 +33,26 @@ db.init_app(app)
 
 
 
+class users(db.Document):
+
+    user_id=db.StringField(unique=True,required=True)
+    size = db.StringField(required=True)
+    email=db.StringField(unique=True,required=True)
+    pass_code=db.StringField(required=True)
+    admin=db.BooleanField(required=True)
+
+    def to_json(self):
+        #convert this document to json
+        return {
+            "user_id":self.user_id,
+            "size":self.size,
+            "email":self.email,
+            "pass_code":self.pass_code,
+            "admin":self.admin
+        }
+
+
+
 
 
 
@@ -54,7 +73,7 @@ def token_required(f):
 
         try: 
             data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=['HS256'])
-            current_user = userModel.users.objects(email=data['user']).first()
+            current_user = users.objects(email=data['user']).first()
 
             return f(current_user.to_json(), *args, **kwargs)
         except Exception as e:
@@ -84,7 +103,7 @@ def get_all_users(current_user):
     elif current_user['admin'] == True:
          if request.method == "GET":
             user=[]
-            for u in userModel.users.objects:
+            for u in users.objects:
                 user.append(u)
             return make_response(jsonify(user),200)
 
@@ -106,7 +125,7 @@ def get_all_users(current_user):
 def get_one_users(current_user):
 
     if request.method == "GET":
-        user  = userModel.users.objects(user_id=current_user['user_id'])
+        user  = users.objects(user_id=current_user['user_id'])
         
         if user:
             return make_response(jsonify(user),200)
@@ -128,7 +147,7 @@ def create_user():
         data = request.get_json()
         hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
-        book1=userModel.users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
+        book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
         book1.save()
         return make_response("success! new user created",201)
     elif request.method == "GET":
@@ -150,7 +169,7 @@ def login_user():
   if not auth or not auth.username or not auth.password:  
      return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})    
 
-  user = userModel.users.objects(email=auth.username).first()
+  user = users.objects(email=auth.username).first()
   data =user.to_json()
      
   if check_password_hash(data['pass_code'], auth.password):
