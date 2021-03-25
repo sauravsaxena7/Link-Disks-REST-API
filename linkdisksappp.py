@@ -175,6 +175,12 @@ def login_user():
 
 
 
+@app.route('/', methods=['GET', 'POST'])
+def handle_request():
+    return "Flask Server & Android are Working Successfully"
+
+
+
 
 
 if __name__ == '__main__':
