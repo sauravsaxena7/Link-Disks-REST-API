@@ -1,4 +1,0 @@
-pip freeze >  requirements.txt
-
-
-pip install mongoengine flask-mongoengine dnspython
