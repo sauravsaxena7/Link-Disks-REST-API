@@ -175,9 +175,14 @@ def login_user():
 
 
 
-@app.route('/', methods=['GET', 'POST'])
-def handle_request():
-    return "Flask Server & Android are Working Successfully"
+@app.route('/linkApi/upload?image', methods=['GET', 'POST'])
+def upload_image():
+    
+    imagefile = flask.request.files['image']
+    filename = werkzeug.utils.secure_filename(imagefile.filename)
+    print("\nReceived image File name : " + imagefile.filename)
+    imagefile.save(filename)
+    return "Image Uploaded Successfully"
 
 
 
