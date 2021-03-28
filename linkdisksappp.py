@@ -17,7 +17,7 @@ from functools import wraps
 
 import os
 
-import userModel,ImagesModels
+import userModel
 
 app = Flask(__name__)
 
@@ -80,19 +80,21 @@ def token_required(f):
 def get_all_users(current_user):
 
 
-    if current_user['admin'] == False:
-        return jsonify({'message','Cannot perform that function'})
+    # if current_user['admin'] == False:
+    #     return jsonify({'message','Cannot perform that function'})
            
 
-    elif current_user['admin'] == True:
-         if request.method == "GET":
-            user=[]
-            for u in userModel.users.objects:
-                user.append(u)
-            return make_response(jsonify(user),200)
+    # elif current_user['admin'] == True:
+    #      if request.method == "GET":
+    #         user=[]
+    #         for u in userModel.users.objects:
+    #             user.append(u)
+    #         return make_response(jsonify(user),200)
 
-         elif request.method == "POST":
-             pass   
+    #      elif request.method == "POST":
+    #          pass   
+
+    return "ok"
         
 
     
@@ -178,16 +180,6 @@ def login_user():
 
 
 
-@app.route('/linkApi/upload_image', methods=['GET', 'POST'])
-def upload_image():
-
-    # imagefile = flask.request.files['image']
-    # filename = werkzeug.utils.secure_filename(imagefile.filename)
-    # imagess = ImagesModels.Images()
-    # print("\nReceived image File name : " + imagefile.filename)
-    username=flask.request.headers
-    
-    return "ok"
 
 
 
