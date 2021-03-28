@@ -110,16 +110,19 @@ def get_all_users(current_user):
 @token_required
 def get_one_users(current_user):
 
-    if request.method == "GET":
-        user  = userModel.users.objects(user_id=current_user['user_id'])
+    # if request.method == "GET":
+    #     user  = userModel.users.objects(user_id=current_user['user_id'])
         
-        if user:
-            return make_response(user.to_json(),200)
+    #     if user:
+    #         return make_response(user.to_json(),200)
 
-    elif request.method == "POST":
-        pass     
-    elif request.method == "PUT":
-        pass   
+    # elif request.method == "POST":
+    #     pass     
+    # elif request.method == "PUT":
+    #     pass   
+
+    return "ok"
+
 
 
 
