@@ -112,7 +112,7 @@ def get_one_users(current_user):
         user  = userModel.users.objects(user_id=current_user['user_id'])
         
         if user:
-            return make_response(jsonify(user),200)
+            return make_response(user.to_json(),200)
 
     elif request.method == "POST":
         pass     
