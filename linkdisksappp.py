@@ -178,17 +178,6 @@ def login_user():
 
 
 
-# @app.route('/linkApi/upload_image', methods=['GET', 'POST'])
-# def upload_image():
-
-#     # imagefile = flask.request.files['image']
-#     # filename = werkzeug.utils.secure_filename(imagefile.filename)
-#     # imagess = ImagesModels.Images()
-#     # print("\nReceived image File name : " + imagefile.filename)
-#     username=flask.request.headers
-    
-#     return username
-
 
 
 
