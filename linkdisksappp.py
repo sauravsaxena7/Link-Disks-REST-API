@@ -126,9 +126,16 @@ def get_one_users(current_user):
 
 @app.route('/linkApi/create_user', methods=['POST','GET'])
 def create_user():
-
+    
     if request.method == "POST":
         data = request.get_json()
+
+        user  = userModel.users.objects(user_id=data['user_id']).first()
+
+        if user:
+            return make_response("user already exists",401)
+
+
         hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
         book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
