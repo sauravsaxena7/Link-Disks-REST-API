@@ -17,7 +17,7 @@ from functools import wraps
 
 import os
 
-import userModel
+import userModel,ImagesModels
 
 app = Flask(__name__)
 
@@ -91,7 +91,8 @@ def get_all_users(current_user):
                 user.append(u)
             return make_response(jsonify(user),200)
 
-           
+         elif request.method == "POST":
+             pass   
         
 
     
@@ -111,9 +112,12 @@ def get_one_users(current_user):
         user  = userModel.users.objects(user_id=current_user['user_id'])
         
         if user:
-            return make_response(user.to_json(),200)
+            return make_response(jsonify(user),200)
 
-    
+    elif request.method == "POST":
+        pass     
+    elif request.method == "PUT":
+        pass   
 
 
 
@@ -130,7 +134,8 @@ def create_user():
         book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
         book1.save()
         return make_response("success! new user created",201)
-    
+    elif request.method == "GET":
+        pass
 
 
 
@@ -173,13 +178,23 @@ def login_user():
 
 
 
+@app.route('/linkApi/upload_image', methods=['GET', 'POST'])
+def upload_image():
+
+    # imagefile = flask.request.files['image']
+    # filename = werkzeug.utils.secure_filename(imagefile.filename)
+    # imagess = ImagesModels.Images()
+    # print("\nReceived image File name : " + imagefile.filename)
+    username=flask.request.headers
+    
+    return username
 
 
 
 
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
     port = int(os.environ.get('PORT', 33507))
     waitress.serve(app, port=port)
 
