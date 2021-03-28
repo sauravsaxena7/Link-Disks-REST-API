@@ -80,21 +80,19 @@ def token_required(f):
 def get_all_users(current_user):
 
 
-    # if current_user['admin'] == False:
-    #     return jsonify({'message','Cannot perform that function'})
+    if current_user['admin'] == False:
+        return jsonify({'message','Cannot perform that function'})
            
 
-    # elif current_user['admin'] == True:
-    #      if request.method == "GET":
-    #         user=[]
-    #         for u in userModel.users.objects:
-    #             user.append(u)
-    #         return make_response(jsonify(user),200)
+    elif current_user['admin'] == True:
+         if request.method == "GET":
+            user=[]
+            for u in userModel.users.objects:
+                user.append(u)
+            return make_response(jsonify(user),200)
 
-    #      elif request.method == "POST":
-    #          pass   
-
-    return "ok"
+         elif request.method == "POST":
+             pass   
         
 
     
@@ -110,19 +108,16 @@ def get_all_users(current_user):
 @token_required
 def get_one_users(current_user):
 
-    # if request.method == "GET":
-    #     user  = userModel.users.objects(user_id=current_user['user_id'])
+    if request.method == "GET":
+        user  = userModel.users.objects(user_id=current_user['user_id'])
         
-    #     if user:
-    #         return make_response(user.to_json(),200)
+        if user:
+            return make_response(user.to_json(),200)
 
-    # elif request.method == "POST":
-    #     pass     
-    # elif request.method == "PUT":
-    #     pass   
-
-    return "ok"
-
+    elif request.method == "POST":
+        pass     
+    elif request.method == "PUT":
+        pass   
 
 
 
@@ -132,16 +127,15 @@ def get_one_users(current_user):
 @app.route('/linkApi/create_user', methods=['POST','GET'])
 def create_user():
 
-    # if request.method == "POST":
-    #     data = request.get_json()
-    #     hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
+    if request.method == "POST":
+        data = request.get_json()
+        hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
-    #     book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
-    #     book1.save()
-    #     return make_response("success! new user created",201)
-    # elif request.method == "GET":
-    #     pass
-    return "ok"
+        book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
+        book1.save()
+        return make_response("success! new user created",201)
+    elif request.method == "GET":
+        pass
 
 
 
@@ -154,28 +148,27 @@ def create_user():
 @app.route('/linkApi/login',methods=['GET', 'POST'])
 def login_user(): 
  
-#   auth = request.authorization   
+  auth = request.authorization   
 
-#   if not auth or not auth.username or not auth.password:  
-#      return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})    
+  if not auth or not auth.username or not auth.password:  
+     return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})    
 
-#   user = userModel.users.objects(email=auth.username).first()
-#   data =user.to_json()
+  user = userModel.users.objects(email=auth.username).first()
+  data =user.to_json()
      
-#   if check_password_hash(data['pass_code'], auth.password):
+  if check_password_hash(data['pass_code'], auth.password):
 
-#       token = jwt.encode({
-#           'user':request.authorization.username,
-#           'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+      token = jwt.encode({
+          'user':request.authorization.username,
+          'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
 
-#       },app.config['SECRET_KEY']) 
+      },app.config['SECRET_KEY']) 
 
-#       return ({
-#          'token':token.encode().decode('UTF-8')
-#       })
+      return ({
+         'token':token.encode().decode('UTF-8')
+      })
 
-#   return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
-return "ok"
+  return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
 
 
 
