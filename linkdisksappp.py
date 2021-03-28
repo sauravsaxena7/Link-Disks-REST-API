@@ -136,13 +136,14 @@ def create_user():
             return make_response("user already exists",401)
 
         else:
+            return "hello"
             hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
             book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
             book1.save()
             return make_response("success! new user created",201)
 
-            
+
     elif request.method == "GET":
         return make_response("success denied new user created",401)
 
