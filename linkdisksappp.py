@@ -90,6 +90,7 @@ def get_all_users(current_user):
             for u in userModel.users.objects:
                 user.append(u)
             return make_response(jsonify(user),200)
+    return "unauthorised access"        
 
            
         
@@ -113,6 +114,8 @@ def get_one_users(current_user):
         if user:
             return make_response(jsonify(user),200)
 
+    return None        
+
    
 
 
@@ -130,7 +133,8 @@ def create_user():
         book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
         book1.save()
         return make_response("success! new user created",201)
-    
+    else:
+        return None
 
 
 
