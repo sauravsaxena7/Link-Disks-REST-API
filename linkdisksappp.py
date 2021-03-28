@@ -17,7 +17,7 @@ from functools import wraps
 
 import os
 
-import userModel,ImagesModels
+import userModel
 
 app = Flask(__name__)
 
