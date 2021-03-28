@@ -187,7 +187,7 @@ def upload_image():
     # print("\nReceived image File name : " + imagefile.filename)
     username=flask.request.headers
     
-    return username
+    return "ok"
 
 
 
