@@ -132,15 +132,16 @@ def get_one_users(current_user):
 @app.route('/linkApi/create_user', methods=['POST','GET'])
 def create_user():
 
-    if request.method == "POST":
-        data = request.get_json()
-        hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
+    # if request.method == "POST":
+    #     data = request.get_json()
+    #     hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
-        book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
-        book1.save()
-        return make_response("success! new user created",201)
-    elif request.method == "GET":
-        pass
+    #     book1=users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
+    #     book1.save()
+    #     return make_response("success! new user created",201)
+    # elif request.method == "GET":
+    #     pass
+    return "ok"
 
 
 
@@ -153,27 +154,28 @@ def create_user():
 @app.route('/linkApi/login',methods=['GET', 'POST'])
 def login_user(): 
  
-  auth = request.authorization   
+#   auth = request.authorization   
 
-  if not auth or not auth.username or not auth.password:  
-     return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})    
+#   if not auth or not auth.username or not auth.password:  
+#      return make_response('could not verify', 401, {'WWW.Authentication': 'Basic realm: "login required"'})    
 
-  user = userModel.users.objects(email=auth.username).first()
-  data =user.to_json()
+#   user = userModel.users.objects(email=auth.username).first()
+#   data =user.to_json()
      
-  if check_password_hash(data['pass_code'], auth.password):
+#   if check_password_hash(data['pass_code'], auth.password):
 
-      token = jwt.encode({
-          'user':request.authorization.username,
-          'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+#       token = jwt.encode({
+#           'user':request.authorization.username,
+#           'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
 
-      },app.config['SECRET_KEY']) 
+#       },app.config['SECRET_KEY']) 
 
-      return ({
-         'token':token.encode().decode('UTF-8')
-      })
+#       return ({
+#          'token':token.encode().decode('UTF-8')
+#       })
 
-  return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
+#   return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
+return "ok"
 
 
 
