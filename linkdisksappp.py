@@ -135,7 +135,7 @@ def create_user():
         book1.save()
         return make_response("success! new user created",201)
     elif request.method == "GET":
-        pass
+        return make_response("success denied new user created",401)
 
 
 
