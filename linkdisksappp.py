@@ -130,9 +130,10 @@ def create_user():
     if request.method == "POST":
         data = request.get_json()
 
-        user  = userModel.users.objects(user_id=data['user_id'] or email=data['email']).first()
+        user  = userModel.users.objects(user_id=data['user_id']).first()
+        user2 = userModel.users.objects(email=data['email']).first()
 
-        if user:
+        if user or user2:
             return make_response("user already exists",401)
 
         else:
