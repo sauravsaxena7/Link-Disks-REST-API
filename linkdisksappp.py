@@ -134,7 +134,11 @@ def create_user():
         user2 = userModel.users.objects(email=data['email']).first()
 
         if user or user2:
-            return make_response("user already exists",401)
+            return ({
+                'error':'401',
+                'message':'user already exist',
+                'token':'none'
+            })
 
         else:
             hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
