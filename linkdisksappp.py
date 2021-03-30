@@ -147,7 +147,7 @@ def create_user():
             book1.save()
 
 
-            token = json.encode({
+            token = jwt.encode({
                 'user':data['email'],
                 'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
 
