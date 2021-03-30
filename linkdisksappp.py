@@ -145,10 +145,20 @@ def create_user():
 
             book1=userModel.users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
             book1.save()
+
+
+            token = json.encode({
+                'user':data['email'],
+                'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+
+            },app.config['SECRET_KEY'])
+         
+
+
             return ({
                 'error':'200',
                 'message':'user created successfully',
-                'token':'none'
+                'token':token.encode().decode('UTF-8')
             })
 
 
