@@ -146,7 +146,7 @@ def create_user():
             book1=userModel.users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
             book1.save()
             return ({
-                'error':'none',
+                'error':'200',
                 'message':'user created successfully',
                 'token':'none'
             })
