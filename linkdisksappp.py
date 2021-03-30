@@ -194,6 +194,7 @@ def login_user():
 
       return ({
          'token':token.encode().decode('UTF-8')
+         'message':'successful'
       })
 
   return make_response('could not verify',  401, {'WWW.Authentication': 'Basic realm: "login required"'})
