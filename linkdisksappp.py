@@ -193,7 +193,7 @@ def login_user():
       },app.config['SECRET_KEY']) 
 
       return ({
-         'token':token.encode().decode('UTF-8')
+         'token':token.encode().decode('UTF-8'),
          'message':'successful'
       })
 
