@@ -199,6 +199,7 @@ def create_user():
 
 
             return ({
+                
                 'error':'200',
                 'message':'user created successfully',
                 'token':token.encode().decode('UTF-8')
