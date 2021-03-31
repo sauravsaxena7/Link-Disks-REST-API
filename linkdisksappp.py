@@ -104,9 +104,9 @@ def get_all_users(current_user):
 @token_required
 def update_password(current_user):
     if request.method == 'PUT':
-
+        data = request.get_json()
         if data:
-            data = request.get_json()
+            
             user  = userModel.users.objects(email=current_user['email'])
             hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
