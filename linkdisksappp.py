@@ -64,7 +64,7 @@ def token_required(f):
             print(e)
             return jsonify({
                 'message' : str(e),
-                'error':'Token is invalid!'
+                'error':'Token is invalid'
             }), 401
 
         
@@ -199,7 +199,6 @@ def create_user():
 
 
             return ({
-                
                 'error':'200',
                 'message':'user created successfully',
                 'token':token.encode().decode('UTF-8')
