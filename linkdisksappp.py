@@ -64,7 +64,7 @@ def token_required(f):
             print(e)
             return jsonify({
                 'message' : str(e),
-                'error':'Toke is invalid'
+                'error':'Token is invalid!'
             }), 401
 
         
