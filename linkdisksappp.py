@@ -105,7 +105,7 @@ def get_all_users(current_user):
 def update_password(current_user):
     if request.method == 'PUT':
         data = request.get_json()
-        if data:
+        if data or len(data['pass_code']) == 4:
             
             user  = userModel.users.objects(email=current_user['email'])
             hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
@@ -134,7 +134,7 @@ def update_password(current_user):
         else:
             return({
                 'error':'4001',
-                'message':'something empty'
+                'message':'something empty or not proper creadential'
             })    
 
         
