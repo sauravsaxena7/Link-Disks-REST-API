@@ -100,6 +100,46 @@ def get_all_users(current_user):
 
 
 
+@app.route('/linkApi/242updatePassword242',methods=['GET','POST','PUT'])
+@token_required
+def update_password(current_user):
+    if request.method == 'PUT':
+
+        if data:
+            data = request.get_json()
+            user  = userModel.users.objects(user_id=current_user['email'])
+            hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
+
+            if not user:
+                return ({
+                    'error':'4002',
+                    'message':'User is not valid'
+                })
+
+
+            user.update(pass_code=hash_pass_code)
+            
+            message=''
+
+            if data['success_code'] == '1024':
+                message='Password Generated Successfully!'
+            else:
+                message='Password Updated Successfully!'    
+
+            return({
+                'error':'1024',
+                'message':message
+            })
+
+        else:
+            return({
+                'error':'4001',
+                'message':'something empty'
+            })    
+
+        
+
+
 
 
 
