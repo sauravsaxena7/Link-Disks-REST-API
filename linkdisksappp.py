@@ -62,7 +62,7 @@ def token_required(f):
             return f(current_user.to_json(), *args, **kwargs)
         except Exception as e:
             print(e)
-            return jsonify({'message' : 'Token is invalid!'}), 401
+            return jsonify({'message' : e}), 401
 
         
 
