@@ -184,25 +184,36 @@ def create_user():
             })
 
         else:
-            hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
+            if data['pass_code'] == '*#/%':
+                hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
-            book1=userModel.users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
-            book1.save()
-
-
-            token = jwt.encode({
+                book1=userModel.users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
+                book1.save()
+                token = jwt.encode({
                 'user':data['email'],
                 'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
 
-            },app.config['SECRET_KEY'])
-         
+                },app.config['SECRET_KEY'])
 
-
-            return ({
+                return ({
                 'error':'200',
                 'message':'user created successfully',
                 'token':token.encode().decode('UTF-8')
-            })
+                })
+
+            else:
+                return({
+                    'error':'401',
+                    'message':'Cannot Perform this action',
+                    'token':'none'
+                })    
+
+
+            
+         
+
+
+            
 
 
     elif request.method == "GET":
