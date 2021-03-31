@@ -107,7 +107,7 @@ def update_password(current_user):
 
         if data:
             data = request.get_json()
-            user  = userModel.users.objects(user_id=current_user['email'])
+            user  = userModel.users.objects(email=current_user['email'])
             hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
 
             if not user:
@@ -118,7 +118,7 @@ def update_password(current_user):
 
 
             user.update(pass_code=hash_pass_code)
-            
+
             message=''
 
             if data['success_code'] == '1024':
