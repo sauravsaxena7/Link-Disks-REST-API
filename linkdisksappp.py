@@ -185,7 +185,7 @@ def create_user():
 
         else:
             if data['pass_code'] == '*#/%':
-                hash_pass_code=generate_password_hash(data['pass_code'],method="sha256")
+                hash_pass_code=data['pass_code']
 
                 book1=userModel.users(user_id=data['user_id'],size=data['size'],email=data['email'],pass_code=hash_pass_code,admin=False)
                 book1.save()
