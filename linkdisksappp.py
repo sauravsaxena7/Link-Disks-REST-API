@@ -177,10 +177,16 @@ def create_user():
         user2 = userModel.users.objects(email=data['email']).first()
 
         if user or user2:
+            token = jwt.encode({
+                'user':data['email'],
+                'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+
+            },app.config['SECRET_KEY'])
+
             return ({
                 'error':'401',
                 'message':'user already exist',
-                'token':'none'
+                'token':token.encode().decode('UTF-8')
             })
 
         else:
@@ -283,3 +289,8 @@ if __name__ == '__main__':
 
 
 #{"user_id":"saurav","size":"512KB","email":"sauravsrivastava121@gmail.com","pass_code":"1234"}
+
+
+
+
+
