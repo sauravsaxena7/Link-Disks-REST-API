@@ -1,10 +1,4 @@
-from flask import Flask,make_response,request,jsonify
-import flask
-import werkzeug
 
-from flask_mongoengine import MongoEngine
-
-from api_constraints import mongodb_password
 
 
 
@@ -16,6 +10,11 @@ try:
     from functools import wraps
     import os
     import userModel,ImagesModels
+    from flask import Flask,make_response,request,jsonify
+    import flask
+    import werkzeug
+    from flask_mongoengine import MongoEngine
+    from api_constraints import mongodb_password
 
 except Exception as e:
     print("Error : {}".format(e))   
