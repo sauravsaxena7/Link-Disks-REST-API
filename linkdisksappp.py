@@ -188,6 +188,9 @@ def create_user():
 
             })
 
+
+
+
         if user or user2:
             token = jwt.encode({
                 'user':data['email'],
@@ -197,8 +200,8 @@ def create_user():
 
             return ({
                 'error':'401',
-                'message':'user already exist',
-                'token':token.encode().decode('UTF-8')
+                'message':len(data['pass_code']),
+                'token':None
             })
 
         else:
