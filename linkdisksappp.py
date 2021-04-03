@@ -10,16 +10,12 @@ from api_constraints import mongodb_password
 
 try:
     from werkzeug.security import generate_password_hash,check_password_hash
-
-   import jwt
-   import datetime
-   import json
-
-   from functools import wraps
-
-   import os
-
-   import userModel,ImagesModels
+    import jwt
+    import datetime
+    import json
+    from functools import wraps
+    import os
+    import userModel,ImagesModels
 
 except Exception as e:
     print("Error : {}".format(e))   
