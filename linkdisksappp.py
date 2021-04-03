@@ -180,7 +180,7 @@ def create_user():
         user  = userModel.users.objects(user_id=data['user_id']).first()
         user2 = userModel.users.objects(email=data['email']).first()
 
-        if len(data['pass_code'])==4:
+        if len(data['pass_code'])!=4:
             return({
                 'error':'401',
                 'message':'password contains only four digit',
@@ -200,8 +200,8 @@ def create_user():
 
             return ({
                 'error':'401',
-                'message':len(data['pass_code']),
-                'token':None
+                'message':'user already exist',
+                'token':token.encode().decode('UTF-8')
             })
 
         else:
