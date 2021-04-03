@@ -187,7 +187,7 @@ def create_user():
 
         if len(data['pass_code'])!=4:
             return({
-                'error':'401',
+                'error':'4011',
                 'message':'password contains only four digit',
                 'token':'none'
 
