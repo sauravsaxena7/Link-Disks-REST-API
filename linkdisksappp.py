@@ -7,17 +7,26 @@ from flask_mongoengine import MongoEngine
 from api_constraints import mongodb_password
 
 
-from werkzeug.security import generate_password_hash,check_password_hash
 
-import jwt
-import datetime
-import json
+try:
+    from werkzeug.security import generate_password_hash,check_password_hash
 
-from functools import wraps
+   import jwt
+   import datetime
+   import json
 
-import os
+   from functools import wraps
 
-import userModel,ImagesModels
+   import os
+
+   import userModel,ImagesModels
+
+except Exception as e:
+    print("Error : {}".format(e))   
+
+
+
+
 
 app = Flask(__name__)
 
@@ -175,6 +184,14 @@ def create_user():
 
         user  = userModel.users.objects(user_id=data['user_id']).first()
         user2 = userModel.users.objects(email=data['email']).first()
+
+        if len(data['pass_code'])==4:
+            return({
+                'error':'401',
+                'message':'password contains only four digit',
+                'token':'none'
+
+            })
 
         if user or user2:
             token = jwt.encode({
