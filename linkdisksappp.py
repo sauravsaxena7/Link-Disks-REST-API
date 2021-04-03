@@ -9,12 +9,15 @@ try:
     import json
     from functools import wraps
     import os
+    
+    
     import userModel,ImagesModels
     from flask import Flask,make_response,request,jsonify
-    import flask
+    import flask_restful import Resource,Api
     import werkzeug
     from flask_mongoengine import MongoEngine
     from api_constraints import mongodb_password
+
 
 except Exception as e:
     print("Error : {}".format(e))   
@@ -37,6 +40,8 @@ app.config["MONGODB_HOST"] = DB_URI
 db = MongoEngine()
 
 db.init_app(app)
+
+api=Api(app)
 
 
 
@@ -293,6 +298,20 @@ def upload_image():
     
     return username
 
+
+
+class HelloWorld(Resource):
+    def get(self):
+        DATABASENAME=os.getenv("DATABASENAME")
+        re json.dumps({
+            "DATABASE":DATABASENAME
+        })
+
+
+parser=reqparse.RequestParser()
+
+
+parser.add_arguments("name",type=str,help="software engineer [String]")
 
 
 
