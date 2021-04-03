@@ -301,19 +301,26 @@ def upload_image():
 
 
 class HelloWorld(Resource):
+
+    def __init__(self):
+        self.name = parser.parse_args().get('name', None)
+        self.age = parser.parse_args().get('age', None)
+
     def get(self):
-        DATABASENAME=os.getenv("DATABASENAME")
-        re json.dumps({
-            "DATABASE":DATABASENAME
+
+        DATABASENAME = os.getenv("DATABASENAME")
+
+        return json.dumps({
+            "Database":DATABASENAME,
+            "name":self.name,
+            "age":self.age
+
         })
 
-
-parser=reqparse.RequestParser()
-
-
-parser.add_arguments("name",type=str,help="software engineer [String]")
-
-
+api.add_resource(HelloWorld, "/fo")
+parser = reqparse.RequestParser()
+parser.add_argument("name", type=str, required=True, help= "Name is required ")
+parser.add_argument("age", type=str, help= "age is not mandatory  ")
 
 
 if __name__ == '__main__':
