@@ -6,6 +6,8 @@ services:
         build: ./flask
         container_name: flask
         restart: always
+        env_file:
+            - dev.env
         expose:
             - 8080
 
