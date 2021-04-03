@@ -13,7 +13,7 @@ try:
     
     import userModel,ImagesModels
     from flask import Flask,make_response,request,jsonify
-    import flask_restful import Resource,Api
+    from flask_restful import Resource,Api
     import werkzeug
     from flask_mongoengine import MongoEngine
     from api_constraints import mongodb_password
